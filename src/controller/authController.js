@@ -1,9 +1,11 @@
-const { generateToken } = require('../configs/jwtoken');
-const User = require('../models/userModel');
-const Product = require("../models/productModel");
+const { generateToken } = require('../config/jwtoken');
+const User = require('../model/authModel');
+const Book = require("../model/bookModel");
+const Review = require("../model/reviewModel");
+const Meeting = require("../model/meetingModel");
 const asyncHandler = require('express-async-handler');
-const validateMongodbId = require('../utils/validateMongodbId');
-const { generateRefreshToken } = require('../configs/refreshToken');
+const validateMongodbId = require('../util/validateMongodbId');
+const { generateRefreshToken } = require('../config/refreshToken');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto')
 const sendEmail = require('./emailController');
@@ -315,6 +317,17 @@ const updatePassword = asyncHandler(async (req, res) => {
   });
 
 
+  const getWishlist = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const findUser = await User.findById(_id).populate("wishlist");
+    res.json(findUser);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+
 module.exports = {
     createUser, 
     loginUserCtrl, 
@@ -330,5 +343,6 @@ module.exports = {
     forgotPasswordToken,
     resetPassword,
     loginAdmin,
+    getWishlist,
     saveAddress
 }

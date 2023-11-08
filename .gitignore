@@ -11,3 +11,9 @@ node_modules
 # values not to be shared and most of the values
 # will be manually created or dynamically.
 .env
+
+MAIL_ID = mouhamedkoko996@gmail.com
+MP = uccwjebcnubxxpih
+CLOUD_NAME = dqstxdor5
+API_KEY = 544639251836426
+SECRET_KEY = tYKyvjEWl0OtvOnyb0gW2L-kqug
