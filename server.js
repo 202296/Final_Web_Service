@@ -1,16 +1,16 @@
 const express = require('express');
-const dbConnect = require('./src/configs/connectDB');
+const dbConnect = require('./src/config/connectDB');
 const app = express();
 const dotenv = require('dotenv').config();
 const swaggerUi = require('swagger-ui-express');;
 const PORT = process.env.PORT || 8800;
-const participantRouter = require('./src/routes/authRoute');
-const bookRouter = require('./src/routes/bookRoute');
-const meetRouter = require('./src/routes/meetRoute');
-const reviewRouter = require('./src/routes/reviewRoute');
+const participantRouter = require('./src/route/authRoute');
+const bookRouter = require('./src/route/bookRoute');
+const meetRouter = require('./src/route/meetRoute');
+const reviewRouter = require('./src/route/reviewRoute');
 
 const bodyParser = require('body-parser');
-const { notFound, errorHandler } = require('./src/middlewares/errorHandler');
+const { notFound, errorHandler } = require('./src/middleware/errorHandler');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan')
 dbConnect()

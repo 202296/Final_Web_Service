@@ -14,7 +14,6 @@ const {
     forgotPasswordToken,
     resetPassword,
     loginAdmin,
-    getWishlist,
     saveAddress
 } = require('../controller/authController');
 const { authMiddleware, isAdmin } = require('../middleware/authMiddleware');
@@ -32,7 +31,6 @@ router.get('/all-users', getallUser);
 
 router.get('/refresh', handleRefreshToken);
 router.get('/logout', logout);
-router.get("/wishlist", authMiddleware, getWishlist);
 
 router.get('/:id', authMiddleware , isAdmin, getaUser);
 

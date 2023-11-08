@@ -26,10 +26,6 @@ var bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
-      required: true,
-    },
     genre: {
       type: String,
       required: true,
@@ -38,20 +34,6 @@ var bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-    sold: {
-      type: Number,
-      default: 0,
-    },
-    images: [
-      {
-        public_id: String,
-        url: String,
-      },
-    ],
     tags: String,
     ratings: [
       {
