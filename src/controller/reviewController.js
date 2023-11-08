@@ -1,7 +1,8 @@
-const Review = require('../models/review'); // Import the Review model
+const Review = require('../model/reviewModel'); // Import the Review model
+const asyncHandler = require("express-async-handler");
 
 // Create a new review
-exports.createReview = async (req, res) => {
+const createReview = asyncHandler(async (req, res) => {
   try {
     const review = new Review(req.body);
     await review.save();
@@ -9,20 +10,20 @@ exports.createReview = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the review.' });
   }
-};
+});
 
 // Get a list of all reviews
-exports.getAllReviews = async (req, res) => {
+const getAllReviews = asyncHandler(async (req, res) => {
   try {
     const reviews = await Review.find();
     res.json(reviews);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching reviews.' });
   }
-};
+});
 
 // Get a single review by ID
-exports.getReviewById = async (req, res) => {
+const getReviewById = asyncHandler(async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
     if (!review) {
@@ -32,10 +33,10 @@ exports.getReviewById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching the review.' });
   }
-};
+});
 
 // Update a review by ID
-exports.updateReview = async (req, res) => {
+const updateReview = asyncHandler(async (req, res) => {
   try {
     const review = await Review.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!review) {
@@ -45,10 +46,10 @@ exports.updateReview = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while updating the review.' });
   }
-};
+});
 
 // Delete a review by ID
-exports.deleteReview = async (req, res) => {
+const deleteReview = asyncHandler(async (req, res) => {
   try {
     const review = await Review.findByIdAndRemove(req.params.id);
     if (!review) {
@@ -58,4 +59,13 @@ exports.deleteReview = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while deleting the review.' });
   }
+});
+
+
+module.exports = {
+  createReview,
+  getReviewById,
+  getAllReviews,
+  updateReview,
+  deleteReview,
 };

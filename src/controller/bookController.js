@@ -1,81 +1,75 @@
-const Product = require("../models/productModel");
-const User = require("../models/userModel");
+const Book = require("../model/bookModel"); // Import the Book model
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
-const validateMongodbId = require("../utils/validateMongodbId");
+const validateMongodbId = require("../util/validateMongodbId");
 
-const createProduct = asyncHandler(async (req, res) => {
+const createBook = asyncHandler(async (req, res) => {
   try {
     if (req.body.title) {
       req.body.slug = slugify(req.body.title);
     }
-    const newProduct = await Product.create(req.body);
-    res.json(newProduct);
+    const newBook = await Book.create(req.body);
+    res.json(newBook);
   } catch (error) {
     throw new Error(error);
   }
 });
 
-const updateProduct = asyncHandler(async (req, res) => {
-    const id = req.params.id; // Corrected
-  
-    try {
-      if (req.body.title) {
-        req.body.slug = slugify(req.body.title);
-      }
-  
-      // Update data, specifying the unique identifier
-      const updateProduct = await Product.findOneAndUpdate(
-        { _id: id },     // Corrected filter using _id
-        req.body,
-        { new: true }
-      );
-  
-      if (!updateProduct) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-  
-      res.json(updateProduct);
-    } catch (error) {
-      throw new Error(error);
+const updateBook = asyncHandler(async (req, res) => {
+  const isbn = req.params.isbn;
+
+  try {
+    if (req.body.title) {
+      req.body.slug = slugify(req.body.title);
     }
-  });
-  
 
-const deleteProduct = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  validateMongodbId(id);
-  try {
-    const deleteProduct = await Product.findOneAndDelete({_id: id});
-    res.json(deleteProduct);
+    const updatedBook = await Book.findOneAndUpdate(
+      { isbn: isbn },
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.json(updatedBook);
   } catch (error) {
     throw new Error(error);
   }
 });
 
-const getaProduct = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  validateMongodbId(id);
+const deleteBook = asyncHandler(async (req, res) => {
+  const isbn = req.params.isbn;
+  validateMongodbId(isbn);
   try {
-    const findProduct = await Product.findById(id);
-    res.json(findProduct);
+    const deletedBook = await Book.findOneAndDelete({ isbn: isbn });
+    res.json(deletedBook);
   } catch (error) {
     throw new Error(error);
   }
 });
 
-const getAllProduct = asyncHandler(async (req, res) => {
+const getaBook = asyncHandler(async (req, res) => {
+  const { isbn } = req.params;
+  validateMongodbId(isbn);
   try {
-    // Filtering
+    const foundBook = await Book.findOne({ isbn: isbn });
+    res.json(foundBook);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const getAllBooks = asyncHandler(async (req, res) => {
+  try {
     const queryObj = { ...req.query };
     const excludeFields = ["page", "sort", "limit", "fields"];
     excludeFields.forEach((el) => delete queryObj[el]);
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    let query = Product.find(JSON.parse(queryStr));
-
-    // Sorting
+    let query = Book.find(JSON.parse(queryStr));
 
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
@@ -84,8 +78,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
       query = query.sort("-createdAt");
     }
 
-    // limiting the fields
-
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       query = query.select(fields);
@@ -93,69 +85,31 @@ const getAllProduct = asyncHandler(async (req, res) => {
       query = query.select("-__v");
     }
 
-    // pagination
-
     const page = req.query.page;
     const limit = req.query.limit;
     const skip = (page - 1) * limit;
     query = query.skip(skip).limit(limit);
     if (req.query.page) {
-      const productCount = await Product.countDocuments();
-      if (skip >= productCount) throw new Error("This Page does not exists");
+      const bookCount = await Book.countDocuments();
+      if (skip >= bookCount) throw new Error("This Page does not exist");
     }
-    const product = await query;
-    res.json(product);
+    const books = await query;
+    res.json(books);
   } catch (error) {
     throw new Error(error);
   }
 });
-
-
-const addToWishlist = asyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  const { prodId } = req.body;
-  try {
-    const user = await User.findById(_id);
-    const alreadyadded = user.wishlist.find((id) => id.toString() === prodId);
-    if (alreadyadded) {
-      let user = await User.findByIdAndUpdate(
-        _id,
-        {
-          $pull: { wishlist: prodId },
-        },
-        {
-          new: true,
-        }
-      );
-      res.json(user);
-    } else {
-      let user = await User.findByIdAndUpdate(
-        _id,
-        {
-          $push: { wishlist: prodId },
-        },
-        {
-          new: true,
-        }
-      );
-      res.json(user);
-    }
-  } catch (error) {
-    throw new Error(error);
-  }
-});
-
 
 const rating = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { star, prodId, comment } = req.body;
+  const { star, isbn, comment } = req.body;
   try {
-    const product = await Product.findById(prodId);
-    let alreadyRated = product.ratings.find(
+    const book = await Book.findOne({ isbn: isbn });
+    let alreadyRated = book.ratings.find(
       (userId) => userId.postedby.toString() === _id.toString()
     );
     if (alreadyRated) {
-      const updateRating = await Product.updateOne(
+      const updateRating = await Book.updateOne(
         {
           ratings: { $elemMatch: alreadyRated },
         },
@@ -167,8 +121,8 @@ const rating = asyncHandler(async (req, res) => {
         }
       );
     } else {
-      const rateProduct = await Product.findByIdAndUpdate(
-        prodId,
+      const rateBook = await Book.findOneAndUpdate(
+        { isbn: isbn },
         {
           $push: {
             ratings: {
@@ -183,31 +137,30 @@ const rating = asyncHandler(async (req, res) => {
         }
       );
     }
-    const getallratings = await Product.findById(prodId);
-    let totalRating = getallratings.ratings.length;
-    let ratingsum = getallratings.ratings
+    const getAllRatings = await Book.findOne({ isbn: isbn });
+    let totalRating = getAllRatings.ratings.length;
+    let ratingsSum = getAllRatings.ratings
       .map((item) => item.star)
       .reduce((prev, curr) => prev + curr, 0);
-    let actualRating = Math.round(ratingsum / totalRating);
-    let finalproduct = await Product.findByIdAndUpdate(
-      prodId,
+    let actualRating = Math.round(ratingsSum / totalRating);
+    let finalBook = await Book.findOneAndUpdate(
+      { isbn: isbn },
       {
         totalrating: actualRating,
       },
       { new: true }
     );
-    res.json(finalproduct);
+    res.json(finalBook);
   } catch (error) {
     throw new Error(error);
   }
 });
 
 module.exports = {
-  createProduct,
-  getaProduct,
-  getAllProduct,
-  updateProduct,
-  deleteProduct,
-  addToWishlist,
+  createBook,
+  getaBook,
+  getAllBooks,
+  updateBook,
+  deleteBook,
   rating,
 };

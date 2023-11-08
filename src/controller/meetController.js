@@ -1,7 +1,8 @@
-const Meeting = require('../models/meeting'); // Import the Meeting model
+const Meeting = require('../model/meetModel'); // Import the Meeting model
+const asyncHandler = require("express-async-handler");
 
 // Create a new meeting
-exports.createMeeting = async (req, res) => {
+const createMeeting = asyncHandler( async (req, res) => {
   try {
     const meeting = new Meeting(req.body);
     await meeting.save();
@@ -9,20 +10,20 @@ exports.createMeeting = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the meeting.' });
   }
-};
+});
 
 // Get a list of all meetings
-exports.getAllMeetings = async (req, res) => {
+const getAllMeetings = asyncHandler(async (req, res) => {
   try {
     const meetings = await Meeting.find();
     res.json(meetings);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching meetings.' });
   }
-};
+});
 
 // Get a single meeting by ID
-exports.getMeetingById = async (req, res) => {
+const getMeetingById = asyncHandler(async (req, res) => {
   try {
     const meeting = await Meeting.findById(req.params.id);
     if (!meeting) {
@@ -32,10 +33,10 @@ exports.getMeetingById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching the meeting.' });
   }
-};
+});
 
 // Update a meeting by ID
-exports.updateMeeting = async (req, res) => {
+const updateMeeting = asyncHandler(async (req, res) => {
   try {
     const meeting = await Meeting.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!meeting) {
@@ -45,10 +46,10 @@ exports.updateMeeting = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while updating the meeting.' });
   }
-};
+});
 
 // Delete a meeting by ID
-exports.deleteMeeting = async (req, res) => {
+const deleteMeeting = asyncHandler(async (req, res) => {
   try {
     const meeting = await Meeting.findByIdAndRemove(req.params.id);
     if (!meeting) {
@@ -58,4 +59,13 @@ exports.deleteMeeting = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while deleting the meeting.' });
   }
+});
+
+
+module.exports = {
+  createMeeting,
+  getMeetingById,
+  getAllMeetings,
+  updateMeeting,
+  deleteMeeting,
 };
