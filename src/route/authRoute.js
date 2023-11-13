@@ -32,9 +32,9 @@ router.get('/all-users', asyncHandler(getallUser));
 router.get('/refresh', asyncHandler(handleRefreshToken));
 router.get('/logout', asyncHandler(logout));
 
-router.get('/:id', authMiddleware , isAdmin, asyncHandler(getaUser));
+router.get('/:id', authMiddleware, asyncHandler(getaUser));
 
-router.delete('/:id', asyncHandler(deleteaUser));
+router.delete('/:id', authMiddleware , isAdmin, asyncHandler(deleteaUser));
 router.put('/edit-user', authMiddleware, asyncHandler(UpdateaUser));
 router.put("/save-address", authMiddleware, asyncHandler(saveAddress));
 router.put('/block-user/:id', authMiddleware, isAdmin, asyncHandler(blockUser));

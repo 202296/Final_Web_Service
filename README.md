@@ -1,24 +1,22 @@
 # FINAL WEB SERVICE
 
-Welcome to our Last Project to build a fully-functional Backend. We did this backend using stack (MongoDB, ExpressJS, React and Node.JS).
+Welcome to our Last Project to build a fully-functional Backend. We did this backend using Mearn stack (MongoDB, ExpressJS, React and Node.JS).
 
 Watch it on Youtube:
 
 
 ## Demo Website
 
-- 👉 Render : 
-- 👉 Render :
-- 👉 Render :
-- 👉 Render :
+- 👉 Render : https://final-web-service.onrender.com/api/user/all-users
+- 👉 Render : https://final-web-service.onrender.com/api/user/book/
+- 👉 Render : https://final-web-service.onrender.com/api/user/reviews
+- 👉 Render : https://final-web-service.onrender.com/api/user/meetings
 
 ## We did it with
 
-- HTML5 and CSS3: Semantic Elements, CSS Grid, Flexbox
-- Context API: Store, Reducers, Actions
-- Node & Express: Web API, Body Parser, File Upload, JWT
+- Node & Express: Web API, Body Parser, JWT
 - MongoDB: Mongoose, Aggregation
-- Development: ESLint, Babel, Git, Github,
+- Development: ESLint, Git, Github
 - Deployment: Renders
 
 ## Run Locally
@@ -27,12 +25,12 @@ Watch it on Youtube:
 
 ```
 $ git clone https://github.com/202296/Final_Web_Service.git
-$ cd final_web_service
+$ cd Final_Web_Service
 ```
 
 ### 2. Create .env File
 
-- duplicate .env.example in backend folder and rename it to .env
+- duplicate .env.example in Final_Web_Service folder and rename it to .env
 
 ### 3. Setup MongoDB
 
@@ -43,20 +41,20 @@ $ cd final_web_service
   - Create database at [https://cloud.mongodb.com](https://cloud.mongodb.com)
   - In .env file update MONGODB_URI=mongodb+srv://your-db-connection
 
-### 4. Run Backend
+### 4. Run Final_Web_Service
 
 ```
-$ cd backend
+$ cd FINAL_WEB_SERVICE
 $ npm install
 $ npm start
 ```
 
-### 5. Seed Users and Products
+### 5. All Users
 
-- Run this on browser: http://localhost:8800/api/seed
-- It returns admin email and password and 6 sample products
+- Run this on browser: http://localhost:8800/api/user/all-users
+- It returns all users
 
 ### 6. Admin Login
 
-- Run http://localhost:8800/signin
+- Run http://localhost:8800/api/user/admin-login
 - Enter admin email and password and click signin

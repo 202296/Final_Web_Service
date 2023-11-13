@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
-const dbConnect = require("../src/config/connectDB"); // Adjust the import path accordingly
+const dbConnect = require("../config/connectDB"); // Adjust the import path accordingly
 const jwt = require('jsonwebtoken');
-const { generateToken } = require('../src/config/jwToken'); // Adjust the import path accordingly
+const { generateToken } = require('../config/jwToken'); // Adjust the import path accordingly
 const jwt = require('jsonwebtoken');
-const { generateRefreshToken } = require('../src/config/refreshToken'); // Adjust the import path accordingly
-const { createUser } = require('../src/controller/authController'); // Adjust the import path accordingly
+const { generateRefreshToken } = require('../config/refreshToken'); // Adjust the import path accordingly
+const { createUser } = require('../controller/authController'); // Adjust the import path accordingly
 const User = require('../model/authModel');
-const { generateToken } = require('../config/jwtoken');
-const { getaBook } = require('../src/controller/bookController'); // Adjust the import path accordingly
-const Book = require('../src/model/bookModel');
+const { getaBook } = require('../controller/bookController'); // Adjust the import path accordingly
+const Book = require('../model/bookModel');
 
 
 ////////////////////////////////////////////////////////////////
