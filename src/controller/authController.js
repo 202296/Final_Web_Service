@@ -1,4 +1,4 @@
-const { generateToken } = require('../config/jwtoken');
+const { generateToken } = require('../config/jwToken');
 const User = require('../model/authModel');
 const validateMongodbId = require('../util/validateMongodbId');
 const { generateRefreshToken } = require('../config/refreshToken');
