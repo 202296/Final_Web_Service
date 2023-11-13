@@ -1,0 +1,479 @@
+// LOCALHOST for Authentification
+###
+GET http://localhost:8800/api/user/all-users
+###
+GET http://localhost:8800/api/user/65468d3cafda1d19897efa06
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+###
+GET http://localhost:8800/api/user/refresh
+###
+GET http://localhost:8800/api/user/logout
+###
+GET http://localhost:8800/api/user/password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+{
+    "email": "kevin95@gmail.com",
+    "password": "Kev!n998"
+}
+###
+GET http://localhost:8800/api/user/save-address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+{
+    "address": "kevin95@gmail.com"
+}
+###
+GET http://localhost:8800/api/user/block-user/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+###
+GET http://localhost:8800/api/user/unblock-user/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+###
+GET http://localhost:8800/api/user/reset-password/
+Content-Type: application/json
+{
+    "email": "kevin95@gmail.com",
+    "password": "Kev!n991"
+}
+###
+GET http://localhost:8800/api/user/forgot-password-token
+Content-Type: application/json
+{
+    "firstname": "Konan",
+    "lastname": "Kouassi Kevin",
+    "email": "kevin95@gmail.com",
+    "mobile": "+2250504932563",
+    "role": "admin"
+}
+###
+POST http://localhost:8800/api/user/admin-login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "taper91@gmail.com",
+    "password": "Ch@rletape92"
+}
+###
+POST http://localhost:8800/api/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+
+    "email": "taper91@gmail.com",
+    "password": "Ch@rletape92"
+
+}
+###
+POST http://localhost:8800/api/user/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstname": "charle",
+    "lastname": "Taper",
+    "email": "taper91@gmail.com",
+    "mobile": "+225086478021",
+    "password": "Ch@rletape92",
+    "role": "employee"
+}
+###
+PUT http://localhost:8800/api/user/edit-user HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjU4NiwiZXhwIjoxNjk5MzgxNzg2fQ.8-jW5YzNrH3isGXObOzkboLoPMPuPccqWT0yzXCNODg
+
+{
+    "firstname": "charle",
+    "lastname": "Taper",
+    "email": "taper92@gmail.com",
+    "mobile": "+225086478022",
+    "password": "Ch@rletape92",
+    "role": "employee"
+}
+###
+DELETE http://localhost:8800/api/user/654691e2afda1d19897efa24 HTTP/1.1
+
+
+
+
+
+// PRODUCTION Deploy for Authentification
+### 
+GET https://cse341-2nd-project.onrender.com/api/user/all-users 
+###
+GET http://cse341-2nd-project.onrender.com/api/user/refresh
+###
+GET http://cse341-2nd-project.onrender.com/api/user/logout
+### 
+GET https://cse341-2nd-project.onrender.com/api/user/65468ed66d97cd106e8e3d8a 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMjkzMiwiZXhwIjoxNjk5MzgyMTMyfQ.7AOJ9ggHqDio22PldQEpMaUBUJ022_mJ3w5d8NApH4I
+###
+POST https://cse341-2nd-project.onrender.com/api/user/admin-login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "sidney2@gmail.com",
+    "password": "Koko@rthur02"
+}
+###
+POST https://cse341-2nd-project.onrender.com/api/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "sidney2@gmail.com",
+    "password": "Koko@rthur02"
+}
+###
+GET https://cse341-2nd-project.onrender.com/api/user/password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+{
+    "email": "kevin95@gmail.com",
+    "password": "Kev!n998"
+}
+###
+GET https://cse341-2nd-project.onrender.com/api/user/save-address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+{
+    "address": "kevin95@gmail.com"
+}
+###
+GET https://cse341-2nd-project.onrender.com/api/user/block-user/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+###
+GET https://cse341-2nd-project.onrender.com/api/user/unblock-user/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+###
+GET https://cse341-2nd-project.onrender.com/api/user/reset-password/
+Content-Type: application/json
+{
+    "email": "kevin95@gmail.com",
+    "password": "Kev!n991"
+}
+###
+GET https://cse341-2nd-project.onrender.com/api/user/forgot-password-token
+Content-Type: application/json
+{
+    "firstname": "Konan",
+    "lastname": "Kouassi Kevin",
+    "email": "kevin95@gmail.com",
+    "mobile": "+2250504932563",
+    "role": "admin"
+}
+###
+POST https://cse341-2nd-project.onrender.com/api/user/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstname": "Arthur Kouadio",
+    "lastname": "Koko",
+    "email": "sidney2@gmail.com",
+    "mobile": "+2250524598763",
+    "password": "Koko@rthur02",
+    "role": "admin"
+}
+###
+PUT https://cse341-2nd-project.onrender.com/api/user/edit-user HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzE1OSwiZXhwIjoxNjk5MzgyMzU5fQ.snUjsX_lXd-AwbrkZKb0iM3fP532W8LE5XfGtSTMS4g
+
+{
+    "firstname": "Arthur Kouadio",
+    "lastname": "Koko",
+    "email": "sidney2@gmail.com",
+    "mobile": "+2250524598764",
+    "password": "Koko@rthur02",
+    "role": "admin"
+} 
+###
+DELETE https://cse341-2nd-project.onrender.com/api/user/65347e7b02fcf0339887ef6d
+
+
+
+
+
+// LOCALHOST for Books
+###
+GET http://localhost:8800/api/book/
+###
+GET http://localhost:8800/api/book/65469361afda1d19897efa36
+###
+POST http://localhost:8800/api/book/ HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+    "title": "Rich Dad, Poor Dad",
+    "author": "Laptop",
+    "publishedYear": "Samson",
+    "description": "Hey this is Samson Laptop",
+    "genre": "Finance",
+    "pages": 100
+}
+###
+PUT http://localhost:8800/api/book/65469361afda1d19897efa36 HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+    "title": "Rich Dad, Poor Dad",
+    "author": "Laptop",
+    "publishedYear": "Samson",
+    "description": "Hey this is Samson Laptop",
+    "genre": "Finance",
+    "pages": 100
+}
+###
+PUT http://localhost:8800/api/book/rating HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+    "star": 5,
+    "bookId": "654f7917a19304ac8be65dec"
+}
+###
+DELETE http://localhost:8800/api/book/65469361afda1d19897efa36 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+
+
+// LOCALHOST for Meeting
+###
+GET http://localhost:8800/api/meet/meetings 
+###
+GET http://localhost:8800/api/meet/meetings/654fb0f7901b12bdd449ec1f
+###
+POST http://localhost:8800/api/meet/meetings  HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "title": "Project Kickoff Meeting",
+  "date": "2023-11-15",
+  "location": "Conference Room 301",
+  "attendees": [
+    { "comment": "Looking forward to discussing project goals." },
+    { "comment": "I'll bring the project timeline draft." }
+  ]
+}
+###
+PUT http://localhost:8800/api/meet/meetings/65469361afda1d19897efa36 HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "title": "Project Kickoff Meeting",
+  "date": "2023-11-15",
+  "location": "Conference Room 301",
+  "attendees": [
+    { "comment": "Looking forward to discussing project goals." },
+    { "comment": "I'll bring the project timeline draft." }
+  ]
+}
+###
+DELETE http://localhost:8800/api/meet/meetings/65469361afda1d19897efa36 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+
+// LOCALHOST for Reviews
+###
+GET http://localhost:8800/api/review/reviews 
+###
+GET http://localhost:8800/api/review/reviews/654fcd4b9ff0af151026c338
+###
+POST http://localhost:8800/api/review/reviews  HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "book": "The Great Gatsby",
+  "tags": "Classic, Fiction",
+  "ratings": [
+    {
+      "star": 5,
+      "comment": "A masterpiece!"
+    },
+    {
+      "star": 4,
+      "comment": "Enjoyed the story."
+    },
+    {
+      "star": 3,
+      "comment": "It was okay."
+    }
+  ]
+}
+###
+PUT http://localhost:8800/api/review/reviews/65469361afda1d19897efa36 HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "book": "The Great Gatsby",
+  "tags": "Classic, Fiction",
+  "ratings": [
+    {
+      "star": 5,
+      "comment": "A masterpiece!"
+    },
+    {
+      "star": 4,
+      "comment": "Enjoyed the story."
+    },
+    {
+      "star": 3,
+      "comment": "It was okay."
+    }
+  ]
+}
+###
+DELETE http://localhost:8800/api/review/reviews/65469361afda1d19897efa36 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+
+
+
+// PRODUCTION Deploy for Books
+###
+GET https://cse341-2nd-project.onrender.com/api/book/
+###
+GET https://cse341-2nd-project.onrender.com/api/book/65469361afda1d19897efa36
+###
+POST https://cse341-2nd-project.onrender.com/api/book/ HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+    "title": "Rich Dad, Poor Dad",
+    "author": "Laptop",
+    "publishedYear": "Samson",
+    "description": "Hey this is Samson Laptop",
+    "genre": "Finance",
+    "pages": 100
+}
+###
+PUT https://cse341-2nd-project.onrender.com/api/book/65469361afda1d19897efa36 HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+    "title": "Rich Dad, Poor Dad",
+    "author": "Laptop",
+    "publishedYear": "Samson",
+    "description": "Hey this is Samson Laptop",
+    "genre": "Finance",
+    "pages": 100
+}
+###
+PUT https://cse341-2nd-project.onrender.com/api/book/rating HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+    "star": 5,
+    "bookId": "654f7917a19304ac8be65dec"
+}
+###
+DELETE https://cse341-2nd-project.onrender.com/api/book/65469361afda1d19897efa36 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+
+
+// PRODUCTION Deploy for Meeting
+###
+GET https://cse341-2nd-project.onrender.com/api/meet/meetings 
+###
+GET https://cse341-2nd-project.onrender.com/api/meet/meetings/654fb0f7901b12bdd449ec1f
+###
+POST https://cse341-2nd-project.onrender.com/api/meet/meetings  HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "title": "Project Kickoff Meeting",
+  "date": "2023-11-15",
+  "location": "Conference Room 301",
+  "attendees": [
+    { "comment": "Looking forward to discussing project goals." },
+    { "comment": "I'll bring the project timeline draft." }
+  ]
+}
+###
+PUT https://cse341-2nd-project.onrender.com/api/meet/meetings/65469361afda1d19897efa36 HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "title": "Project Kickoff Meeting",
+  "date": "2023-11-15",
+  "location": "Conference Room 301",
+  "attendees": [
+    { "comment": "Looking forward to discussing project goals." },
+    { "comment": "I'll bring the project timeline draft." }
+  ]
+}
+###
+DELETE https://cse341-2nd-project.onrender.com/api/meet/meetings/65469361afda1d19897efa36 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+
+// PRODUCTION Deploy for Reviews
+###
+GET https://cse341-2nd-project.onrender.com/api/review/reviews 
+###
+GET https://cse341-2nd-project.onrender.com/api/review/reviews/654fcd4b9ff0af151026c338
+###
+POST https://cse341-2nd-project.onrender.com/api/review/reviews  HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "book": "The Great Gatsby",
+  "tags": "Classic, Fiction",
+  "ratings": [
+    {
+      "star": 5,
+      "comment": "A masterpiece!"
+    },
+    {
+      "star": 4,
+      "comment": "Enjoyed the story."
+    },
+    {
+      "star": 3,
+      "comment": "It was okay."
+    }
+  ]
+}
+###
+PUT https://cse341-2nd-project.onrender.com/api/review/reviews/65469361afda1d19897efa36 HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
+
+{
+  "book": "The Great Gatsby",
+  "tags": "Classic, Fiction",
+  "ratings": [
+    {
+      "star": 5,
+      "comment": "A masterpiece!"
+    },
+    {
+      "star": 4,
+      "comment": "Enjoyed the story."
+    },
+    {
+      "star": 3,
+      "comment": "It was okay."
+    }
+  ]
+}
+###
+DELETE https://cse341-2nd-project.onrender.com/api/review/reviews/65469361afda1d19897efa36 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
