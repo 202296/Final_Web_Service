@@ -3,6 +3,10 @@ const mongoose = require("mongoose"); // Erase if already required
 // Declare the Schema of the Mongo model
 var bookSchema = new mongoose.Schema(
   {
+    month: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,

@@ -210,6 +210,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+    "month": "",
     "title": "Rich Dad, Poor Dad",
     "author": "Laptop",
     "publishedYear": "Samson",
@@ -223,6 +224,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+    "month": "",
     "title": "Rich Dad, Poor Dad",
     "author": "Laptop",
     "publishedYear": "Samson",
@@ -256,6 +258,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "title": "Project Kickoff Meeting",
   "date": "2023-11-15",
   "location": "Conference Room 301",
@@ -270,6 +273,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "title": "Project Kickoff Meeting",
   "date": "2023-11-15",
   "location": "Conference Room 301",
@@ -294,6 +298,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "book": "The Great Gatsby",
   "tags": "Classic, Fiction",
   "ratings": [
@@ -317,6 +322,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "book": "The Great Gatsby",
   "tags": "Classic, Fiction",
   "ratings": [
@@ -352,6 +358,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+    "month": "",
     "title": "Rich Dad, Poor Dad",
     "author": "Laptop",
     "publishedYear": "Samson",
@@ -365,6 +372,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+    "month": "",
     "title": "Rich Dad, Poor Dad",
     "author": "Laptop",
     "publishedYear": "Samson",
@@ -398,6 +406,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "title": "Project Kickoff Meeting",
   "date": "2023-11-15",
   "location": "Conference Room 301",
@@ -412,6 +421,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "title": "Project Kickoff Meeting",
   "date": "2023-11-15",
   "location": "Conference Room 301",
@@ -436,6 +446,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "book": "The Great Gatsby",
   "tags": "Classic, Fiction",
   "ratings": [
@@ -459,6 +470,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2NmQ5N2NkMTA2ZThlM2Q4YSIsImlhdCI6MTY5OTEyMzk5MCwiZXhwIjoxNjk5MzgzMTkwfQ.N1faEXtNJEUsA1ZxziaSdK3A1MV5Hu147pV0NvJWQVI
 
 {
+  "month": "",
   "book": "The Great Gatsby",
   "tags": "Classic, Fiction",
   "ratings": [

@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 var meetingSchema = new mongoose.Schema({
+  month: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
