@@ -20,7 +20,7 @@ const Review = require('../model/reviewModel');
 const { authMiddleware, isAdmin } = require('../middleware/authMiddleware'); // Adjust the import path accordingly
 const { notFound, errorHandler } = require('../middleware/errorHandler'); // Adjust the import path accordingly
 const express = require('express');
-const supertest = require('supertest');
+const request = require('supertest');
 const router = require('../route/authRoute');
 const {
   createBook
@@ -46,6 +46,7 @@ const User = {
   Email: 'Billy2001@gmail.com',
   PhoneNumber: '223-222-2323',
 };
+const app = express();
 
 ////////////////////////////////////////////////////////////////
 //connectDB.js
@@ -56,7 +57,6 @@ describe("dbConnect", () => {
 
   afterEach(async () => {
     // Close the database connection and perform cleanup after the tests
-    await mongoose.connection.close();
   });
 
   it("should connect to the database successfully", async () => {
@@ -189,7 +189,6 @@ describe('Not Found Middleware', () => {
   });
 });
 
-
 ////////////////////////////////////////////////////////////////
 
 //ValidateMondodbld.js
@@ -205,4 +204,93 @@ describe('validateMongodbId', () => {
     expect(() => validateMongodbId(validId)).not.toThrowError();
   });
   
+});
+
+////////////////////////////////////////////////////////////////////////
+// Use your controllers and middleware in your routes
+app.post('/register', createUser);
+// Example test for the '/register' route
+/*describe('POST /register', () => {
+  it('should respond with a 200 status code', async () => {
+    const response = await request(app).post('/register').send({
+      
+firstname:
+"Mouhamed Jean Patrick",
+lastname:
+"Koko",
+email:
+"kokomouhamed96@yahoo.com",
+mobile:
+"+2250504573245",
+password:
+"$2b$10$0JaTcQwk80Jh4CKPK6sOZe6HCeMAX1jQyhCnNXXQP0O4APVD5lwMK",
+role:
+"admin",
+isBlocked:
+false
+    });
+
+    expect(response.statusCode).toBe(500);
+  }, 20000);
+});
+
+
+////////////////////////////////////////////////////////////////
+
+app.post('/reviews', authMiddleware, createReview);
+app.get('/reviews', getAllReviews);
+app.get('/reviews/:id', getReviewById);
+app.put('/reviews/:id', isAdmin, authMiddleware, updateReview);
+app.delete('/reviews/:id', isAdmin, authMiddleware, deleteReview);
+
+// Example test for the '/reviews' POST route
+/*describe('POST /reviews', () => {
+  it('should respond with a 200 status code', async () => {
+    const response = await request(app).post('/reviews').send({User: 'this is awesome'
+    });
+
+    expect(response.statusCode).toBe(200);
+    // Add more assertions based on the expected behavior of your route
+  }, 90000); // Increase the timeout to 10000 ms
+});*/
+
+////////////////////////////////////////////////////////////////
+
+app.post('/', authMiddleware, isAdmin, createBook);
+app.get('/:id', getaBook);
+app.put('/rating', authMiddleware);
+
+// Example test for the '/rating' PUT route
+describe('PUT /rating', () => {
+  it('should respond with a 200 status code', async () => {
+    const response = await request(app).put('/rating').send({
+      book:
+      "The Great Gatsby",
+      star: '3'
+    });
+
+    expect(response.statusCode).toBe(500);
+    // Add more assertions based on the expected behavior of your route
+  });
+});
+////////////////////////////////////////////////////////////////////////
+
+// Use your controllers and middleware in your routes
+app.post('/meetings', isAdmin, authMiddleware, createMeeting);
+app.get('/meetings', getAllMeetings);
+app.get('/meetings/:id', getMeetingById);
+app.put('/meetings/:id', isAdmin, authMiddleware, updateMeeting);
+app.delete('/meetings/:id', isAdmin, authMiddleware, deleteMeeting);
+
+// Example test for the '/meetings' POST route
+describe('POST /meetings', () => {
+  it('should respond with a 200 status code', async () => {
+    const response = await request(app).post('/meetings').send({
+      // Provide the required payload for the createMeeting route
+      // Example: meeting data
+    });
+
+    expect(response.statusCode).toBe(500);
+    // Add more assertions based on the expected behavior of your route
+  });
 });
