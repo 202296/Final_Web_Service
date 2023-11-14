@@ -11,6 +11,7 @@ Watch it on Youtube:
 - 👉 Render : https://final-web-service.onrender.com/api/user/book/
 - 👉 Render : https://final-web-service.onrender.com/api/user/reviews
 - 👉 Render : https://final-web-service.onrender.com/api/user/meetings
+- 👉 Swagger : https://final-web-service.onrender.com/api-docs/
 
 ## We did it with
 
