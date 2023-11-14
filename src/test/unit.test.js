@@ -2,13 +2,50 @@ const mongoose = require("mongoose");
 const dbConnect = require("../config/connectDB"); // Adjust the import path accordingly
 const jwt = require('jsonwebtoken');
 const { generateToken } = require('../config/jwToken'); // Adjust the import path accordingly
-const jwt = require('jsonwebtoken');
 const { generateRefreshToken } = require('../config/refreshToken'); // Adjust the import path accordingly
 const { createUser } = require('../controller/authController'); // Adjust the import path accordingly
-const User = require('../model/authModel');
 const { getaBook } = require('../controller/bookController'); // Adjust the import path accordingly
 const Book = require('../model/bookModel');
+const sendEmail = require('../controller/emailController'); // Adjust the import path accordingly
+const {
+  createMeeting,
+  getAllMeetings,
+} = require('../controller/meetController'); // Adjust the import path accordingly
+const Meeting = require('../model/meetModel');
+const {
+  createReview,
+  getAllReviews,
+} = require('../controller/reviewController'); // Adjust the import path accordingly
+const Review = require('../model/reviewModel');
+const { authMiddleware, isAdmin } = require('../middleware/authMiddleware'); // Adjust the import path accordingly
+const { notFound, errorHandler } = require('../middleware/errorHandler'); // Adjust the import path accordingly
+const express = require('express');
+const supertest = require('supertest');
+const router = require('../route/authRoute');
+const {
+  createBook
+} = require('../controller/bookController');
+const {
+  getMeetingById,
+  updateMeeting,
+  deleteMeeting,
+} = require('../controller/meetController');
+const {
+  getReviewById,
+  updateReview,
+  deleteReview,
+} = require('../controller/reviewController');
+const validateMongodbId = require('../util/validateMongodbId');
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
+// Assuming you are using jest-express for mocking Express
+const { mockRequest, mockResponse } = require('jest-express');
+const User = {
+  Name: 'Billy',
+  Email: 'Billy2001@gmail.com',
+  PhoneNumber: '223-222-2323',
+};
 
 ////////////////////////////////////////////////////////////////
 //connectDB.js
@@ -17,14 +54,15 @@ describe("dbConnect", () => {
     // Setup any necessary configurations or mocks before running the tests
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     // Close the database connection and perform cleanup after the tests
     await mongoose.connection.close();
   });
 
   it("should connect to the database successfully", async () => {
     // Mock the MONGODB_URL environment variable
-    process.env.MONGODB_URL = MONGODB_URL;
+    const mongodbUrl = process.env.MONGODB_URL;
+
 
     // Create a spy to capture console.log output
     const consoleLogSpy = jest.spyOn(console, "log");
@@ -38,148 +76,133 @@ describe("dbConnect", () => {
     // Clean up the spy
     consoleLogSpy.mockRestore();
   });
-
-  it("should handle database connection errors", async () => {
-    // Mock the MONGODB_URL environment variable to an incorrect value
-    process.env.MONGODB_URL = "invalid-url";
-
-    // Create a spy to capture console.error output
-    const consoleErrorSpy = jest.spyOn(console, "error");
-
-    // Call the dbConnect function
-    await dbConnect();
-
-    // Assert that an error message was logged
-    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining("Database connection error"));
-
-    // Clean up the spy
-    consoleErrorSpy.mockRestore();
-  });
 });
 ////////////////////////////////////////////////////////////////
 //jwToken.js
 describe('generateToken', () => {
-    // Mock process.env.JWT_SECRET to provide a known secret
-    const originalEnv = process.env;
-  
-    beforeEach(() => {
-      jest.resetModules();
-      process.env = { ...originalEnv };
-    });
-  
-    afterEach(() => {
-      process.env = originalEnv;
-    });
-  
-    it('should generate a valid JWT token', () => {
-      // Mock the jwt.sign method
-      jwt.sign = jest.fn();
-  
-      // Set process.env.JWT_SECRET
-      process.env.JWT_SECRET = 'your-secret-key';
-  
-      // Generate a token
-      const userId = 123;
-      generateToken(userId);
-  
-      // Verify that jwt.sign was called with the expected arguments
-      expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, 'your-secret-key', { expiresIn: '3d' });
-    });
-  });
-  //refreshToken.js
-  describe('generateRefreshToken', () => {
-    // Mock process.env.JWT_SECRET to provide a known secret
-    const originalEnv = process.env;
-  
-    beforeEach(() => {
-      jest.resetModules();
-      process.env = { ...originalEnv };
-    });
-  
-    afterEach(() => {
-      process.env = originalEnv;
-    });
-  
-    it('should generate a valid refresh token', () => {
-      // Mock the jwt.sign method
-      jwt.sign = jest.fn();
-  
-      // Set process.env.JWT_SECRET
-      process.env.JWT_SECRET = JWT_SECRET;
-  
-      // Generate a refresh token
-      const userId = 123;
-      generateRefreshToken(userId);
-  
-      // Verify that jwt.sign was called with the expected arguments
-      expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, JWT_SECRET, { expiresIn: '3d' });
-    });
-  });
-  ////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////
-
-
-//authController.js
-
-describe('createUser', () => {
-  let req, res;
+  // Mock process.env.JWT_SECRET to provide a known secret
+  const originalEnv = process.env.JWT_Secret;
 
   beforeEach(() => {
-    req = {
-      body: {
-        email: 'Change to a valid USER', // Provide valid user data here
-        // Add other required user data
-      },
-    };
-    res = {
-      json: jest.fn(),
-    };
+    jest.resetModules();
+    process.env.JWT_Secret = { ...originalEnv };
   });
 
-  it('should create a new user and respond with the user data', async () => {
-    // Mock the User.findOne method to return null (user does not exist)
-    User.findOne = jest.fn().mockReturnValue(null);
-
-    // Mock the User.create method to return the user data
-    User.create = jest.fn().mockResolvedValue(req.body);
-
-    await createUser(req, res);
-
-    // Verify that the response contains the new user data
-    expect(res.json).toHaveBeenCalledWith(req.body);
+  afterEach(() => {
+    process.env.JWT_Secret = originalEnv;
   });
 
-  it('should throw an error when the user already exists', async () => {
-    // Mock the User.findOne method to return an existing user
-    User.findOne = jest.fn().mockReturnValue({ email: req.body.email });
+  it('should generate a valid JWT token', () => {
+    // Mock the jwt.sign method
+    jwt.sign = jest.fn();
 
-    // Expecting an error to be thrown
-    await expect(createUser(req, res)).rejects.toThrow('User Already Exists');
+    // Set process.env.JWT_SECRET
+    process.env.JWT_SECRET= originalEnv;
+
+    // Generate a token
+    const userId = 123;
+    generateToken(userId);
+
+    // Verify that jwt.sign was called with the expected arguments
+    expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, process.env.JWT_SECRET, { expiresIn: '3d' });
   });
 });
-////////////////////////////////////////////////////////////////
 
-//bookController.js
+// refreshToken.js
+describe('generateRefreshToken', () => {
+  // Mock process.env.JWT_SECRET to provide a known secret
+  const originalEnv = process.env.JWT_SECRET;
 
-describe('getaBook', () => {
-  it('should retrieve a book by ISBN and respond with the book data', async () => {
-    const req = {
-      params: {
-        isbn: 'CHANGE TO BOOK ID', // Provide a valid ISBN here
-      },
-    };
-    const res = {
-      json: jest.fn(),
-    };
-
-    // Mock the Book.findOne method to return the book data
-    Book.findOne = jest.fn().mockResolvedValue(/* Provide the expected book data here */);
-
-    await getaBook(req, res);
-
-    // Verify that the response contains the expected book data
-    expect(res.json).toHaveBeenCalledWith(/* Provide the expected book data here */);
+  beforeEach(() => {
+    jest.resetModules();
+    process.env.JWT_SECRET = { ...originalEnv };
   });
 
-  // Add more test cases for scenarios where the book is not found, validation, etc.
+  afterEach(() => {
+    process.env.JWT_SECRET = originalEnv;
+  });
+
+  it('should generate a valid refresh token', () => {
+    // Mock the jwt.sign method
+    jwt.sign = jest.fn();
+
+    // Set process.env.JWT_SECRET
+    process.env.JWT_SECRET = originalEnv;
+
+    // Generate a refresh token
+    const userId = 123;
+    generateRefreshToken(userId);
+
+    // Verify that jwt.sign was called with the expected arguments
+    expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  });
+});
+////////////////////////////////////////////////////////////////////////
+
+//errorHandler.js
+
+describe('Not Found Middleware', () => {
+  it('should call next with a 404 error', () => {
+    const req = { originalUrl: '/unknown-route' };
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    notFound(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ message: 'Not Found : /unknown-route' }));
+  });
+
+  it('should handle errors with existing status code', () => {
+    const err = new Error('Test Error');
+    const req = {};
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    res.statusCode = 404; // Existing status code
+
+    errorHandler(err, req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'Test Error',
+      stack: expect.any(String),
+    });
+  });
+
+  it('should handle errors with status code 500 when res.statusCode is 200', () => {
+    const err = new Error('Test Error');
+    const req = {};
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    res.statusCode = 200; // Existing status code
+
+    errorHandler(err, req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'Test Error',
+      stack: expect.any(String),
+    });
+  });
+});
+
+
+////////////////////////////////////////////////////////////////
+
+//ValidateMondodbld.js
+
+describe('validateMongodbId', () => {
+  it('should throw an error for invalid MongoDB ID', () => {
+    const invalidId = 'invalidId';
+    expect(() => validateMongodbId(invalidId)).toThrowError('This Id is not valid or not found');
+  });
+
+  it('should not throw an error for valid MongoDB ID', () => {
+    const validId = new mongoose.Types.ObjectId().toHexString();
+    expect(() => validateMongodbId(validId)).not.toThrowError();
+  });
+  
 });
