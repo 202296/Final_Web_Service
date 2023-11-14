@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const dbConnect = require("../src/config/connectDB"); // Adjust the import path accordingly
+const dbConnect = require("../config/connectDB"); // Adjust the import path accordingly
 const jwt = require('jsonwebtoken');
+<<<<<<< HEAD:test/unit.test.js
 const { generateToken } = require('../src/config/jwToken'); // Adjust the import path accordingly
 const { generateRefreshToken } = require('../src/config/refreshToken'); // Adjust the import path accordingly
 const { createUser } = require('../src/controller/authController'); // Adjust the import path accordingly
@@ -37,6 +38,17 @@ const {
 } = require('../src/controller/reviewController');
 const validateMongodbId = require('../src/util/validateMongodbId');
 require('dotenv').config();
+=======
+const { generateToken } = require('../config/jwToken'); // Adjust the import path accordingly
+const jwt = require('jsonwebtoken');
+const { generateRefreshToken } = require('../config/refreshToken'); // Adjust the import path accordingly
+const { createUser } = require('../controller/authController'); // Adjust the import path accordingly
+const User = require('../model/authModel');
+const { getaBook } = require('../controller/bookController'); // Adjust the import path accordingly
+const Book = require('../model/bookModel');
+
+
+>>>>>>> 816904ab31d5113cb687285c3ef0274450a72bc3:src/test/unit.test.js
 ////////////////////////////////////////////////////////////////
 //connectDB.js
 describe("dbConnect", () => {

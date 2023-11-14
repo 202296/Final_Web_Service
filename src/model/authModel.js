@@ -2,7 +2,7 @@ const mongoose = require("mongoose"); // Erase if already required
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 // Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema(
+const participantSchema = new mongoose.Schema(
   {
     firstname: {
       type: String,
@@ -16,6 +16,7 @@ var userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     },
     mobile: {
       type: String,
@@ -25,6 +26,30 @@ var userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      validate: {
+      validator: function (value) {
+        // Minimum length of 8 characters
+        if (value.length < 8) return false;
+    
+        // Maximum length of 26 characters
+        if (value.length > 26) return false;
+    
+        // At least 1 lowercase letter
+        if (!/[a-z]/.test(value)) return false;
+    
+        // At least 1 uppercase letter
+        if (!/[A-Z]/.test(value)) return false;
+    
+        // At least 1 numeric character
+        if (!/\d/.test(value)) return false;
+    
+        // At least 1 symbol character (e.g., @, #, $, etc.)
+        if (!/[!@#$%^&*]/.test(value)) return false;
+    
+        return true; // Password meets all requirements
+      },
+      message: 'Password does not meet the requirements of: Minimum length of 8 characters, At least 1 lowercase letter, At least 1 uppercase letter, At least 1 numeric character, At least 1 symbol character (e.g., @, #, $, etc.)',
+    },
     },
     role: {
       type: String,
@@ -49,7 +74,7 @@ var userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre("save", async function (next) {
+participantSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -57,10 +82,10 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-userSchema.methods.isPasswordMatched = async function (enteredPassword) {
+participantSchema.methods.isPasswordMatched = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-userSchema.methods.createPasswordResetToken = async function () {
+participantSchema.methods.createPasswordResetToken = async function () {
   const resettoken = crypto.randomBytes(32).toString("hex");
   this.passwordResetToken = crypto
     .createHash("sha256")
@@ -71,4 +96,4 @@ userSchema.methods.createPasswordResetToken = async function () {
 };
 
 //Export the model
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Participant", participantSchema);

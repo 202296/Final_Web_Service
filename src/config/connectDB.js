@@ -7,6 +7,8 @@ const dbConnect = async () => {
             useUnifiedTopology: true,
         });
         console.log('Database connected successfully');
+        console.log(mongoose.connection.name); // Check the current database name
+
     } catch (error) {
         console.error('Database connection error:', error);
 

@@ -1,16 +1,24 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // Erase if already required
 
-// Review Schema
-var reviewSchema = new mongoose.Schema({
-  book: String,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  rating: Number,
-  comment: String,
-  date: String,
-  likes: Number,
-  dislikes: Number,
-  tags: [String]
-});
+const reviewSchema = new mongoose.Schema(
+  {
+    book: {
+      type: String,
+      required: true,
+    },
+    tags: String,
+    ratings: [
+      {
+        star: Number,
+        comment: String,
+        postedby: { type: mongoose.Schema.ObjectId, ref: "User" },
+      },
+    ]
+  },
+  { timestamps: true }
+    
+);
+
 
 // Export the models
-module.exports.Review = mongoose.model("Review", reviewSchema);
+module.exports = mongoose.model("Review", reviewSchema);

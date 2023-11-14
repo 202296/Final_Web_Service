@@ -1,9 +1,8 @@
 const Book = require("../model/bookModel"); // Import the Book model
-const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const validateMongodbId = require("../util/validateMongodbId");
 
-const createBook = asyncHandler(async (req, res) => {
+const createBook = async (req, res) => {
   try {
     if (req.body.title) {
       req.body.slug = slugify(req.body.title);
@@ -13,9 +12,9 @@ const createBook = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new Error(error);
   }
-});
+};
 
-const updateBook = asyncHandler(async (req, res) => {
+const updateBook = async (req, res) => {
   const isbn = req.params.isbn;
 
   try {
@@ -37,31 +36,31 @@ const updateBook = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new Error(error);
   }
-});
+};
 
-const deleteBook = asyncHandler(async (req, res) => {
-  const isbn = req.params.isbn;
-  validateMongodbId(isbn);
+const deleteBook = async (req, res) => {
+  const id = req.params.id;
+  validateMongodbId(id);
   try {
-    const deletedBook = await Book.findOneAndDelete({ isbn: isbn });
+    const deletedBook = await Book.findOneAndDelete({ _id: id });
     res.json(deletedBook);
   } catch (error) {
     throw new Error(error);
   }
-});
+};
 
-const getaBook = asyncHandler(async (req, res) => {
-  const { isbn } = req.params;
-  validateMongodbId(isbn);
+const getaBook = async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
   try {
-    const foundBook = await Book.findOne({ isbn: isbn });
+    const foundBook = await Book.findOne({ _id: id });
     res.json(foundBook);
   } catch (error) {
     throw new Error(error);
   }
-});
+};
 
-const getAllBooks = asyncHandler(async (req, res) => {
+const getAllBooks = async (req, res) => {
   try {
     const queryObj = { ...req.query };
     const excludeFields = ["page", "sort", "limit", "fields"];
@@ -98,9 +97,9 @@ const getAllBooks = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new Error(error);
   }
-});
+};
 
-const rating = asyncHandler(async (req, res) => {
+const rating = async (req, res) => {
   const { _id } = req.user;
   const { star, isbn, comment } = req.body;
   try {
@@ -154,7 +153,7 @@ const rating = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new Error(error);
   }
-});
+};
 
 module.exports = {
   createBook,

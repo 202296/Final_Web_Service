@@ -1,567 +1,1220 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "Authentication and Production API",
-      "description": "API documentation for the Authentication and Production API",
-      "version": "1.0.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "Authentication and Book API",
+    "description": "API documentation for the Authentication, Book, Meeting and Review API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8800",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Endpoints for user authentication and Admin management"
     },
-    "host": "localhost:5000",
-    "basePath": "/api",
-    "schemes": ["http"],
-    "tags": [
-      {
-        "name": "Authentication & Production",
-        "description": "Endpoints for user authentication and product"
-      },
-      {
-        "name": "Users and product",
-        "description": "Endpoints for managing user and product data"
-      }
-    ],
-    "securityDefinitions": {
-      "Bearer": {
-        "type": "apiKey",
-        "name": "Authorization",
-        "in": "header"
-      }
+    {
+      "name": "Books",
+      "description": "Endpoints for managing Books data"
     },
-    "paths": {
-      "/user/register": {
-        "post": {
-          "tags": ["Authentication"],
-          "summary": "Create a new user",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "User object",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User registered successfully"
-            },
-            "400": {
-              "description": "Bad request"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/user/login": {
-        "post": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Authentication"],
-          "summary": "User login",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "User login credentials",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Credentials"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User logged in successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "500": {
-              "description": "Server error"
+    {
+      "name": "Meetings ",
+      "description": "Endpoints for setting and displaying meetings"
+    },
+    {
+      "name": "Review",
+      "description": "Endpoints for managing user review"
+    }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
             }
           }
-        }
-      },
-      "/user/admin-login": {
-        "post": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Authentication"],
-          "summary": "Admin login",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Admin login credentials",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Credentials"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Admin user logged in successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/user/all-users": {
-        "get": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Users"],
-          "summary": "Get all users",
-          "responses": {
-            "200": {
-              "description": "User data retrieved successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/user/{id}": {
-        "get": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Users"],
-          "summary": "Get a user by ID",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "User ID",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User data retrieved successfully",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "404": {
-              "description": "User not found"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        },
-        "delete": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Users"],
-          "summary": "Delete a user by ID",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "User ID",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "User deleted successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "404": {
-              "description": "User not found"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/user/refresh": {
-        "get": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Users"],
-          "summary": "Refresh users Token",
-          "responses": {
-            "200": {
-              "description": "User Token refresh successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/user/logout": {
-        "get": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Users"],
-          "summary": "Users logout",
-          "responses": {
-            "200": {
-              "description": "User logout successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/user/edit-user": {
-        "put": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Users"],
-          "summary": "Edit a user's profile",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Updated user information",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User profile updated successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "500": {
-              "description": "Server error"
-            }
-          }
-        }
-      },
-      "/product/": {
-        "post": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Products"],
-          "summary": "Create a new product",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Product object",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Product"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Product created successfully"
-            },
-            "400": {
-              "description": "Bad request"
-            },
-            "401": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "500": {
-              "description": "Internal server error"
-            }
-          }
-        },
-        "get": {
-          "tags": ["Products"],
-          "summary": "Get all products",
-          "responses": {
-            "200": {
-              "description": "Product data retrieved successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "500": {
-              "description": "Internal server error"
-            }
-          }
-        }
-      },
-      "/product/{id}": {
-        "get": {
-          "tags": ["Products"],
-          "summary": "Get a product by ID",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of the product",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Product data retrieved successfully",
-              "schema": {
-                "$ref": "#/definitions/Product"
-              }
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "404": {
-              "description": "Product not found"
-            },
-            "500": {
-              "description": "Internal server error"
-            }
-          }
-        },
-        "put": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Products"],
-          "summary": "Update a product by ID",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of the product",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Updated product object",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Product"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Product updated successfully"
-            },
-            "400": {
-              "description": "Bad request"
-            },
-            "401": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "404": {
-              "description": "Product not found"
-            },
-            "500": {
-              "description": "Internal server error"
-            }
-          }
-        },
-        "delete": {
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "tags": ["Products"],
-          "summary": "Delete a product by ID",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of the product",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "Product deleted successfully"
-            },
-            "400": {
-              "description": "Unauthorized"
-            },
-            "403": {
-              "description": "Forbidden"
-            },
-            "404": {
-              "description": "Product not found"
-            },
-            "500": {
-              "description": "Internal server error"
-            }
+        ],
+        "responses": {
+          "200": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
     },
-    "definitions": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "firstname": {
+    "/user/login": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "User login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User login credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/forgot-password-token": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "User forgot password token",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User forgot password token",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "password token refound successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/admin-login": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Admin login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Admin login credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin user logged in successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/all-users": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "User data retrieved successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Get a user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User data retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
           },
-          "lastname": {
-            "type": "string"
+          "400": {
+            "description": "Unauthorized"
           },
-          "dateOfBirth": {
-            "type": "string"
+          "403": {
+            "description": "Forbidden"
           },
-          "department": {
-            "type": "string"
+          "404": {
+            "description": "User not found"
           },
-          "salary": {
-            "type": "number"
-          },
-          "email": {
-            "type": "string"
-          },
-          "hireDate": {
-            "type": "string"
-          },
-          "jobTitle": {
-            "type": "string"
-          },
-          "mobile": {
-            "type": "string"
-          },
-          
-          "password":{
-            "type":"string"
-          },
-          "role":{ 
-          "type":"string",
-          "default": "employee"
+          "500": {
+            "description": "Server error"
           }
         }
       },
-      "Credentials": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "format": "email"
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Delete a user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted successfully"
           },
-          "password": {
-            "type": "string",
-            "description": "User password. Must meet the following requirements:",
-            "minLength": 8,
-            "maxLength": 26,
-            "lowerCase": 1,
-            "upperCase": 1,
-            "numeric": 1,
-            "symbol": 1,
-            "requirementCount": 4
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
-      },    
-      "Product": {
-        "type": "object",
-        "properties": {
-          "productName": {
+      }
+    },
+    "/user/refresh": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Refresh users Token",
+        "responses": {
+          "200": {
+            "description": "User Token refresh successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Users logout",
+        "responses": {
+          "200": {
+            "description": "User logout successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/edit-user": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Edit a user's profile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated user information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile updated successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/password": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Edit a user's password",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated user password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User password updated successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/save-address": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Edit a user's address",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated user address",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User address updated successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/reset-password/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Reset user's password",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
             "type": "string"
           },
-          "description": {
-            "type": "string"
-          },"category": {
-            "type": "string"
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Reset user password to a new one",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User password reset successfully"
           },
-          "price": {
-            "type": "number"
+          "400": {
+            "description": "Unauthorized"
           },
-          
-          "quantityInStock": {
-            "type": "number"
+          "403": {
+            "description": "Forbidden"
           },
-          "manufacturer": {
-            "type": "string"
-          },
-          "supplier": {
-            "type": "string"
-          },
-          "dateAdded": {
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/block-user/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Block user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
             "type": "string"
           }
-          
+        ],
+        "responses": {
+          "200": {
+            "description": "User blocked successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/unblock-user/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Unblock user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unblock User successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/book/": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Books"],
+        "summary": "Create a new book",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Book object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get all books",
+        "responses": {
+          "200": {
+            "description": "Book data retrieved successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/book/rating": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Books"],
+        "summary": "Rate a book",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User rating a book",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Rate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book rating successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/book/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get a book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the book",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book data retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Book not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Books"],
+        "summary": "Update a book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the book",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated book object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book updated successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Book not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Books"],
+        "summary": "Delete a book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the book",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Book deleted successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Book not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/meet/meetings": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Meetings"],
+        "summary": "Create a new meeting",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Meeting object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Meeting created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Meetings"],
+        "summary": "Get all meetings",
+        "responses": {
+          "200": {
+            "description": "Meeting data retrieved successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/meet/meetings/{id}": {
+      "get": {
+        "tags": ["Meetings"],
+        "summary": "Get a meeting by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the meeting",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Meeting data retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/Meeting"
+            }
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Meeting not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Meetings"],
+        "summary": "Update a meeting by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the meeting",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated meeting object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Meeting updated successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Meeting not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Meetings"],
+        "summary": "Delete a meeting by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the meeting",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Meeting deleted successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Meeting not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/review/reviews": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Reviews"],
+        "summary": "Create a new review",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Review object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get all Reviews",
+        "responses": {
+          "200": {
+            "description": "Review data retrieved successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/review/reviews/{id}": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get a review by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the review",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review data retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Reviews"],
+        "summary": "Update a review by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the review",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated review object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review updated successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Reviews"],
+        "summary": "Delete a review by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the review",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Review deleted successfully"
+          },
+          "400": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "password":{
+          "type":"string"
+        },
+        "role":{ 
+        "type":"string",
+        "default": "employee"
+        }
+      }
+    },
+    "Credentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "description": "User password. Must meet the following requirements:",
+          "minLength": 8,
+          "maxLength": 26,
+          "lowerCase": 1,
+          "upperCase": 1,
+          "numeric": 1,
+          "symbol": 1,
+          "requirementCount": 4
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        }
+      } 
+    },
+    "Rate": {
+      "type": "object",
+      "properties": {
+        "star": {
+          "type": "number"
+        },
+        "bookId": {
+          "type": "string"
+        }
+      } 
+    },   
+    "Book": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "publishedYear": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },"genre": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "number"
+        }
+        
+      }
+    },
+    "Meeting": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "attendees":{
+          "type": "array",
+          "items": {
+            "type": "string"
+      }
+    }
+  }
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "book": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "string"
+        },
+        "ratings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "star": {
+                "type": "number"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "postedby": {
+                "type": "string"
+              }
+            },
+            "required": ["star", "comment", "postedby"]
+          }
         }
       }
     }
   }
+}
