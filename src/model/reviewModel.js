@@ -2,6 +2,10 @@ const mongoose = require("mongoose"); // Erase if already required
 
 const reviewSchema = new mongoose.Schema(
   {
+    month: {
+      type: String,
+      required: true,
+    },
     book: {
       type: String,
       required: true,

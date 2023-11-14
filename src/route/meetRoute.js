@@ -12,7 +12,7 @@ const {
 
 
 // Create a new meeting
-router.post('/meetings', isAdmin, authMiddleware, asyncHandler(createMeeting));
+router.post('/meetings', authMiddleware, isAdmin, asyncHandler(createMeeting));
 
 // Get a list of all meetings
 router.get('/meetings', asyncHandler(getAllMeetings));
