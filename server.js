@@ -2,7 +2,8 @@ const express = require('express');
 const dbConnect = require('./src/config/connectDB');
 const app = express();
 const dotenv = require('dotenv').config();
-const swaggerUi = require('swagger-ui-express');;
+const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 const PORT = process.env.PORT || 8800;
 const participantRouter = require('./src/route/authRoute');
 const bookRouter = require('./src/route/bookRoute');
@@ -20,8 +21,8 @@ const swaggerDefinition = require('./swagger.json');
 // Serve Swagger UI at /docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
-
-app.use(morgan("dev"))
+app.use(cors);
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser())
