@@ -21,7 +21,7 @@ const swaggerDefinition = require('./swagger.json');
 // Serve Swagger UI at /docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
-app.use(cors);
+app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
