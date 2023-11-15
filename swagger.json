@@ -1101,7 +1101,7 @@
         },
         "role":{ 
         "type":"string",
-        "default": "employee"
+        "default": "user"
         }
       }
     },
