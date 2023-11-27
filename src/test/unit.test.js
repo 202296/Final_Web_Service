@@ -273,6 +273,7 @@ describe('PUT /rating', () => {
     // Add more assertions based on the expected behavior of your route
   });
 });
+
 ////////////////////////////////////////////////////////////////////////
 
 // Use your controllers and middleware in your routes
@@ -294,3 +295,246 @@ describe('POST /meetings', () => {
     // Add more assertions based on the expected behavior of your route
   });
 });
+describe("dbConnect", () => {
+  beforeAll(() => {
+    // Setup any necessary configurations or mocks before running the tests
+  });
+
+  afterEach(async () => {
+    // Close the database connection and perform cleanup after the tests
+  });
+
+  it("should connect to the database successfully", async () => {
+    // Mock the MONGODB_URL environment variable
+    const mongodbUrl = process.env.MONGODB_URL;
+
+
+    // Create a spy to capture console.log output
+    const consoleLogSpy = jest.spyOn(console, "log");
+
+    // Call the dbConnect function
+    await dbConnect();
+
+    // Assert that the connection message was logged
+    expect(consoleLogSpy).toHaveBeenCalledWith("Database connected successfully");
+
+    // Clean up the spy
+    consoleLogSpy.mockRestore();
+  });
+});
+////////////////////////////////////////////////////////////////
+//jwToken.js
+describe('generateToken', () => {
+  // Mock process.env.JWT_SECRET to provide a known secret
+  const originalEnv = process.env.JWT_Secret;
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env.JWT_Secret = { ...originalEnv };
+  });
+
+  afterEach(() => {
+    process.env.JWT_Secret = originalEnv;
+  });
+
+  it('should generate a valid JWT token', () => {
+    // Mock the jwt.sign method
+    jwt.sign = jest.fn();
+
+    // Set process.env.JWT_SECRET
+    process.env.JWT_SECRET= originalEnv;
+
+    // Generate a token
+    const userId = 123;
+    generateToken(userId);
+
+    // Verify that jwt.sign was called with the expected arguments
+    expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  });
+});
+
+// refreshToken.js
+describe('generateRefreshToken', () => {
+  // Mock process.env.JWT_SECRET to provide a known secret
+  const originalEnv = process.env.JWT_SECRET;
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env.JWT_SECRET = { ...originalEnv };
+  });
+
+  afterEach(() => {
+    process.env.JWT_SECRET = originalEnv;
+  });
+
+  it('should generate a valid refresh token', () => {
+    // Mock the jwt.sign method
+    jwt.sign = jest.fn();
+
+    // Set process.env.JWT_SECRET
+    process.env.JWT_SECRET = originalEnv;
+
+    // Generate a refresh token
+    const userId = 123;
+    generateRefreshToken(userId);
+
+    // Verify that jwt.sign was called with the expected arguments
+    expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  });
+});
+////////////////////////////////////////////////////////////////////////
+
+//errorHandler.js
+
+describe('Not Found Middleware', () => {
+  it('should call next with a 404 error', () => {
+    const req = { originalUrl: '/unknown-route' };
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    notFound(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ message: 'Not Found : /unknown-route' }));
+  });
+
+  it('should handle errors with existing status code', () => {
+    const err = new Error('Test Error');
+    const req = {};
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    res.statusCode = 404; // Existing status code
+
+    errorHandler(err, req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'Test Error',
+      stack: expect.any(String),
+    });
+  });
+
+  it('should handle errors with status code 500 when res.statusCode is 200', () => {
+    const err = new Error('Test Error');
+    const req = {};
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    res.statusCode = 200; // Existing status code
+
+    errorHandler(err, req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'Test Error',
+      stack: expect.any(String),
+    });
+  });
+});
+
+////////////////////////////////////////////////////////////////
+
+//ValidateMondodbld.js
+
+describe('validateMongodbId', () => {
+  it('should throw an error for invalid MongoDB ID', () => {
+    const invalidId = 'invalidId';
+    expect(() => validateMongodbId(invalidId)).toThrowError('This Id is not valid or not found');
+  });
+
+  it('should not throw an error for valid MongoDB ID', () => {
+    const validId = new mongoose.Types.ObjectId().toHexString();
+    expect(() => validateMongodbId(validId)).not.toThrowError();
+  });
+  
+});
+describe("dbConnect", () => {
+  beforeAll(() => {
+    // Setup any necessary configurations or mocks before running the tests
+  });
+
+  afterEach(async () => {
+    // Close the database connection and perform cleanup after the tests
+  });
+
+  it("should connect to the database successfully", async () => {
+    // Mock the MONGODB_URL environment variable
+    const mongodbUrl = process.env.MONGODB_URL;
+
+
+    // Create a spy to capture console.log output
+    const consoleLogSpy = jest.spyOn(console, "log");
+
+    // Call the dbConnect function
+    await dbConnect();
+
+    // Assert that the connection message was logged
+    expect(consoleLogSpy).toHaveBeenCalledWith("Database connected successfully");
+
+    // Clean up the spy
+    consoleLogSpy.mockRestore();
+  });
+});
+////////////////////////////////////////////////////////////////
+//jwToken.js
+describe('generateToken', () => {
+  // Mock process.env.JWT_SECRET to provide a known secret
+  const originalEnv = process.env.JWT_Secret;
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env.JWT_Secret = { ...originalEnv };
+  });
+
+  afterEach(() => {
+    process.env.JWT_Secret = originalEnv;
+  });
+
+  it('should generate a valid JWT token', () => {
+    // Mock the jwt.sign method
+    jwt.sign = jest.fn();
+
+    // Set process.env.JWT_SECRET
+    process.env.JWT_SECRET= originalEnv;
+
+    // Generate a token
+    const userId = 123;
+    generateToken(userId);
+
+    // Verify that jwt.sign was called with the expected arguments
+    expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  });
+});
+
+// refreshToken.js
+describe('generateRefreshToken', () => {
+  // Mock process.env.JWT_SECRET to provide a known secret
+  const originalEnv = process.env.JWT_SECRET;
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env.JWT_SECRET = { ...originalEnv };
+  });
+
+  afterEach(() => {
+    process.env.JWT_SECRET = originalEnv;
+  });
+
+  it('should generate a valid refresh token', () => {
+    // Mock the jwt.sign method
+    jwt.sign = jest.fn();
+
+    // Set process.env.JWT_SECRET
+    process.env.JWT_SECRET = originalEnv;
+
+    // Generate a refresh token
+    const userId = 123;
+    generateRefreshToken(userId);
+
+    // Verify that jwt.sign was called with the expected arguments
+    expect(jwt.sign).toHaveBeenCalledWith({ id: userId }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  });
+});
+////////////////////////////////////////////////////////////////////////
