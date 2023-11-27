@@ -20,7 +20,7 @@ dbConnect()
 const swaggerDefinition = require('./swagger.json');
 // Serve Swagger UI at /docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
-
+//make sure to add parentheses after cors
 app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
