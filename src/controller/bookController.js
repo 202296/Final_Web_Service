@@ -3,16 +3,21 @@ const slugify = require("slugify");
 const validateMongodbId = require("../util/validateMongodbId");
 
 const createBook = async (req, res) => {
-  try {
-    if (req.body.title) {
-      req.body.slug = slugify(req.body.title);
+    try {
+      console.log('Request body:', req.body); // Log entire request body
+      if (req.body.title) {
+        req.body.slug = slugify(req.body.title);
+        console.log('Generated slug:', req.body.slug); // Log generated slug
+      }
+      const newBook = await Book.create(req.body);
+      res.json(newBook);
+    } catch (error) {
+      console.error('Error creating book:', error);
+      //res.status(500).json({ error: 'Failed to create book' });
     }
-    const newBook = await Book.create(req.body);
-    res.json(newBook);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+  };
+  
+
 
 const updateBook = async (req, res) => {
   const isbn = req.params.isbn;
@@ -62,40 +67,12 @@ const getaBook = async (req, res) => {
 
 const getAllBooks = async (req, res) => {
   try {
-    const queryObj = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "fields"];
-    excludeFields.forEach((el) => delete queryObj[el]);
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    // Retrieve all books from the database and sort them (e.g., by createdAt field)
+    const books = await Book.find({}).sort({ createdAt: -1 }).lean();
 
-    let query = Book.find(JSON.parse(queryStr));
-
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(",").join(" ");
-      query = query.sort(sortBy);
-    } else {
-      query = query.sort("-createdAt");
-    }
-
-    if (req.query.fields) {
-      const fields = req.query.fields.split(",").join(" ");
-      query = query.select(fields);
-    } else {
-      query = query.select("-__v");
-    }
-
-    const page = req.query.page;
-    const limit = req.query.limit;
-    const skip = (page - 1) * limit;
-    query = query.skip(skip).limit(limit);
-    if (req.query.page) {
-      const bookCount = await Book.countDocuments();
-      if (skip >= bookCount) throw new Error("This Page does not exist");
-    }
-    const books = await query;
     res.json(books);
   } catch (error) {
-    throw new Error(error);
+    res.status(500).json({ error: 'Failed to fetch books' });
   }
 };
 
