@@ -262,10 +262,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZWQ2N
   "title": "Project Kickoff Meeting",
   "date": "2023-11-15",
   "location": "Conference Room 301",
-  "attendees": [
-    { "comment": "Looking forward to discussing project goals." },
-    { "comment": "I'll bring the project timeline draft." }
-  ]
+  "attendees": []
 }
 ###
 PUT http://localhost:8800/api/meet/meetings/65469361afda1d19897efa36 HTTP/1.1
