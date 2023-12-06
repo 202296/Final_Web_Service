@@ -1233,9 +1233,6 @@
               },
               "comment": {
                 "type": "string"
-              },
-              "postedby": {
-                "type": "string"
               }
             },
             "required": ["star", "comment", "postedby"]
