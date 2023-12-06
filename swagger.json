@@ -1207,10 +1207,7 @@
           "type": "string"
         },
         "attendees":{
-          "type": "array",
-          "items": {
-            "type": "string"
-      }
+          "type": "array"
     }
   }
     },
