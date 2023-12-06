@@ -10,7 +10,7 @@ const createBook = async (req, res) => {
         console.log('Generated slug:', req.body.slug); // Log generated slug
       }
       const newBook = await Book.create(req.body);
-      res.json(newBook);
+      res.status(201).json({ acknowledged:true, insertedId: newBook.id });
     } catch (error) {
       console.error('Error creating book:', error);
       //res.status(500).json({ error: 'Failed to create book' });
@@ -37,7 +37,7 @@ const updateBook = async (req, res) => {
       return res.status(404).json({ message: "Book not found" });
     }
 
-    res.json(updatedBook);
+    res.status(204).json(updatedBook);
   } catch (error) {
     throw new Error(error);
   }

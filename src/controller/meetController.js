@@ -5,7 +5,7 @@ const createMeeting = async (req, res) => {
   try {
     const meeting = new Meeting(req.body);
     await meeting.save();
-    res.status(201).json(meeting);
+        res.status(201).json({ acknowledged:true, insertedId: meeting.id });
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the meeting.' });
   }
@@ -41,7 +41,7 @@ const updateMeeting = async (req, res) => {
     if (!meeting) {
       return res.status(404).json({ error: 'Meeting not found' });
     }
-    res.json(meeting);
+    res.status(204).json(meeting);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while updating the meeting.' });
   }

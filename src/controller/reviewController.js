@@ -5,7 +5,7 @@ const createReview = async (req, res) => {
   try {
     const review = new Review(req.body);
     await review.save();
-    res.status(201).json(review);
+        res.status(201).json({ acknowledged:true, insertedId: review.id });;
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the review.' });
   }
@@ -41,7 +41,7 @@ const updateReview = async (req, res) => {
     if (!review) {
       return res.status(404).json({ error: 'Review not found' });
     }
-    res.json(review);
+    res.status(204).json(review);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while updating the review.' });
   }

@@ -13,7 +13,7 @@ const createUser = async(req, res) => {
     if (!findUser) {
         // Create a new user
         const newUser = await User.create(req.body);
-        res.json(newUser)
+        res.status(201).json({ acknowledged:true, insertedId: newUser.id });
     } else {
         // User already exists
         throw new Error('User Already Exists');
@@ -153,7 +153,7 @@ const UpdateaUser = async (req, res) => {
             new: true,
         }
         );
-        res.json(UpdateaUser)
+        res.status(204).json(UpdateaUser)
     } catch (error) {
         throw new Error(error);
     }

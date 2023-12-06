@@ -2,39 +2,44 @@
 ###
 GET http://localhost:8800/api/user/all-users
 ###
-GET http://localhost:8800/api/user/65468d3cafda1d19897efa06
+GET http://localhost:8800/api/user/656b6e494067608cbbecb8a7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmI2ZTQ5NDA2NzYwOGNiYmVjYjhhNyIsImlhdCI6MTcwMTUzOTQyNCwiZXhwIjoxNzAxNzk4NjI0fQ.H5Ts7FSdsoCXMrTynaLfoWnEjXaepc-Up6Jp_UDY24o
 ###
 GET http://localhost:8800/api/user/refresh
 ###
 GET http://localhost:8800/api/user/logout
 ###
-PUT http://localhost:8800/api/user/password
+PUT http://localhost:8800/api/user/password HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmI2ZTQ5NDA2NzYwOGNiYmVjYjhhNyIsImlhdCI6MTcwMTUzOTQyNCwiZXhwIjoxNzAxNzk4NjI0fQ.H5Ts7FSdsoCXMrTynaLfoWnEjXaepc-Up6Jp_UDY24o
+
+
 {
-    "email": "kevin95@gmail.com",
-    "password": "Kev!n998"
+    "email": "taper91@gmail.com",
+    "password": "Ch@rletape93"
 }
 ###
 PUT http://localhost:8800/api/user/save-address
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmI2ZTQ5NDA2NzYwOGNiYmVjYjhhNyIsImlhdCI6MTcwMTUzOTQyNCwiZXhwIjoxNzAxNzk4NjI0fQ.H5Ts7FSdsoCXMrTynaLfoWnEjXaepc-Up6Jp_UDY24o
+
 {
     "address": "My address"
 }
 ###
 PUT http://localhost:8800/api/user/block-user/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+Authorization: Bearer Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmI2ZTQ5NDA2NzYwOGNiYmVjYjhhNyIsImlhdCI6MTcwMTUzOTQyNCwiZXhwIjoxNzAxNzk4NjI0fQ.H5Ts7FSdsoCXMrTynaLfoWnEjXaepc-Up6Jp_UDY24o
 ###
 PUT http://localhost:8800/api/user/unblock-user/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
 ###
-PUT http://localhost:8800/api/user/reset-password/
+PUT http://localhost:8800/api/user/reset-password/ HTTP/1.1
 Content-Type: application/json
+
 {
     "email": "kevin95@gmail.com",
     "password": "Kev!n991"
@@ -42,6 +47,7 @@ Content-Type: application/json
 ###
 POST http://localhost:8800/api/user/forgot-password-token
 Content-Type: application/json
+
 {
     "firstname": "Konan",
     "lastname": "Kouassi Kevin",
@@ -130,6 +136,7 @@ Content-Type: application/json
 PUT https://final-web-service.onrender.com/api/user/password
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+
 {
     "email": "kevin95@gmail.com",
     "password": "Kev!n998"
@@ -138,6 +145,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjY
 PUT https://final-web-service.onrender.com/api/user/save-address
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjYWZkYTFkMTk4OTdlZmEwNiIsImlhdCI6MTY5OTEyMjUxOSwiZXhwIjoxNjk5MzgxNzE5fQ.JCVISYDIQQInMawaz9KJB8f4rkF6BRheenPxMS7tfzk
+
 {
     "address": "My address"
 }
@@ -152,6 +160,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDY4ZDNjY
 ###
 PUT https://final-web-service.onrender.com/api/user/reset-password/
 Content-Type: application/json
+
 {
     "email": "kevin95@gmail.com",
     "password": "Kev!n991"
@@ -159,6 +168,7 @@ Content-Type: application/json
 ###
 POST https://final-web-service.onrender.com/api/user/forgot-password-token
 Content-Type: application/json
+
 {
     "firstname": "Konan",
     "lastname": "Kouassi Kevin",
