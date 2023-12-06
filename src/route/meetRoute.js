@@ -21,9 +21,9 @@ router.get('/meetings', asyncHandler(getAllMeetings));
 router.get('/meetings/:id', asyncHandler(getMeetingById));
 
 // Update a meeting by ID
-router.put('/meetings/:id', isAdmin, authMiddleware, asyncHandler(updateMeeting));
+router.put('/meetings/:id',  authMiddleware, isAdmin, asyncHandler(updateMeeting));
 
 // Delete a meeting by ID
-router.delete('/meetings/:id', isAdmin, authMiddleware, asyncHandler(deleteMeeting));
+router.delete('/meetings/:id',  authMiddleware, isAdmin, asyncHandler(deleteMeeting));
 
 module.exports = router;
