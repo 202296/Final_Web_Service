@@ -111,7 +111,7 @@
             "description": "User forgot password token",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Credentials"
+              "$ref": "#/definitions/Credential"
             }
           }
         ],
@@ -1122,6 +1122,27 @@
           "numeric": 1,
           "symbol": 1,
           "requirementCount": 4
+        }
+      }
+    },
+    "Credential": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "role":{ 
+        "type":"string",
+        "default": "user"
         }
       }
     },
