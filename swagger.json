@@ -1113,15 +1113,7 @@
           "format": "email"
         },
         "password": {
-          "type": "string",
-          "description": "User password. Must meet the following requirements:",
-          "minLength": 8,
-          "maxLength": 26,
-          "lowerCase": 1,
-          "upperCase": 1,
-          "numeric": 1,
-          "symbol": 1,
-          "requirementCount": 4
+          "type": "string"
         }
       }
     },

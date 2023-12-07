@@ -26,30 +26,6 @@ const participantSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      validate: {
-      validator: function (value) {
-        // Minimum length of 8 characters
-        if (value.length < 8) return false;
-    
-        // Maximum length of 26 characters
-        if (value.length > 26) return false;
-    
-        // At least 1 lowercase letter
-        if (!/[a-z]/.test(value)) return false;
-    
-        // At least 1 uppercase letter
-        if (!/[A-Z]/.test(value)) return false;
-    
-        // At least 1 numeric character
-        if (!/\d/.test(value)) return false;
-    
-        // At least 1 symbol character (e.g., @, #, $, etc.)
-        if (!/[!@#$%^&*]/.test(value)) return false;
-    
-        return true; // Password meets all requirements
-      },
-      message: 'Password does not meet the requirements of: Minimum length of 8 characters, At least 1 lowercase letter, At least 1 uppercase letter, At least 1 numeric character, At least 1 symbol character (e.g., @, #, $, etc.)',
-    },
     },
     role: {
       type: String,

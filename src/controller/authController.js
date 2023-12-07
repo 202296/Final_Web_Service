@@ -283,7 +283,7 @@ const updatePassword = async (req, res) => {
     try {
       const token = await user.createPasswordResetToken();
       await user.save();
-      const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:8800/api/user/reset-password/${token}'>Click Here</>`;
+      const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='https://final-web-service.onrender.com/api/user/reset-password/${token}'>Click Here</>`;
       const data = {
         to: email,
         text: "Hey User",
